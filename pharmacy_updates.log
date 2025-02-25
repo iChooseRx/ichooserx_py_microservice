@@ -1,0 +1,3 @@
+2025-02-25 12:29:40 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-02-25 12:29:40 - INFO - 📂 Processing file: /Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/pharmacy_data/test_inventory.csv
+2025-02-25 12:29:41 - INFO - UPDATED New Pharmacy C - 99999-1111-09: ('Drug Zeta', 'In Stock', 'Tablet', '45mg', 'Supplier D') → ('Drug Zeta', 'In Stock', 'Tablet', '42.5mg', 'Supplier D')
