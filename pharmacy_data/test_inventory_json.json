@@ -1,0 +1,20 @@
+[
+    {
+        "Pharmacy": "Pharmacy M",
+        "NDC": "66666-6666-04",
+        "Drug": "Drug Lambda",
+        "Stock": "Available",
+        "Form": "Injection",
+        "Strength": "5ml",
+        "Supplier": "Supplier T"
+    },
+    {
+        "Pharmacy": "Pharmacy N",
+        "NDC": "55555-5555-05",
+        "Drug": "Drug Kappa",
+        "Stock": "Low Stock",
+        "Form": "Powder",
+        "Strength": "100g",
+        "Supplier": "Supplier U"
+    }
+]

@@ -42,20 +42,22 @@ def process_file(file_path):
     """Reads and processes a pharmacy inventory file and updates the database."""
     # ✅ Log script start
     logging.info("🚀 Pharmacy inventory watch script started!")
+
     try:
         if file_path.endswith(".csv"):
-            df = pd.read_csv(file_path) # Ignores comment lines, blank lines skipped
+            df = pd.read_csv(file_path)  # Ignores comment lines, blank lines skipped
         elif file_path.endswith(".xlsx"):
             df = pd.read_excel(file_path)
         elif file_path.endswith(".json"):
             df = pd.read_json(file_path)
         else:
             print("❌ Unsupported file format. Skipping.")
+            logging.warning(f"❌ Unsupported file format: {file_path}")
             return
         
         print(f"\n📂 Processing file: {file_path}")
-        print(df.head()) # Display sample data for 
-        
+        print(df.head())  # Display sample data for debugging
+
         # ✅ Log detected file processing
         logging.info(f"📂 Processing file: {file_path}")
 
@@ -76,6 +78,7 @@ def process_file(file_path):
             if "Pharmacy" in df.columns and "NDC" in df.columns and "Drug" in df.columns:
                 if pd.isnull(row["Pharmacy"]) or pd.isnull(row["NDC"]) or pd.isnull(row["Drug"]):
                     print(f"⚠️ Skipping row due to missing required fields: {row}")
+                    logging.warning(f"⚠️ Skipping row due to missing required fields: {row}")
                     continue
 
                 pharmacy_name = row["Pharmacy"].strip()
@@ -86,12 +89,16 @@ def process_file(file_path):
                 strength = row.get("Strength", None)
                 supplier = row.get("Supplier", None)
 
+                # ✅ Always Initialize `new_values` FIRST
+                new_values = (drug_name or "", stock_status or "", form or "", strength or "", supplier or "")
+
                 # 🔍 Check if pharmacy exists
                 cursor.execute("SELECT id FROM pharmacies WHERE name = %s LIMIT 1;", (pharmacy_name,))
                 pharmacy_id = cursor.fetchone()
 
                 if not pharmacy_id:
                     print(f"🔹 Pharmacy '{pharmacy_name}' not found. Creating it now...")
+                    logging.info(f"🔹 Pharmacy '{pharmacy_name}' not found. Creating it now...")
                     default_address = "Unknown Address"
                     default_phone = "000-000-0000"
 
@@ -104,6 +111,7 @@ def process_file(file_path):
                     """, (pharmacy_name, default_address, default_phone))
                     pharmacy_id = cursor.fetchone()
                     print(f"✅ Successfully created or updated pharmacy: {pharmacy_name}")
+                    logging.info(f"✅ Successfully created or updated pharmacy: {pharmacy_name}")
 
                 if pharmacy_id:
                     pharmacy_id = pharmacy_id[0]
@@ -122,10 +130,10 @@ def process_file(file_path):
 
                         # Convert `None` to empty strings for accurate comparison
                         db_values = (db_drug_name or "", db_stock_status or "", db_form or "", db_strength or "", db_supplier or "")
-                        new_values = (drug_name or "", stock_status or "", form or "", strength or "", supplier or "")
 
                         if db_values != new_values:  # Only update if something actually changed
                             print(f"🔍 Attempting UPDATE for {pharmacy_name} - {ndc}: {db_values} → {new_values}")
+                            logging.info(f"🔍 Attempting UPDATE for {pharmacy_name} - {ndc}: {db_values} → {new_values}")
 
                             cursor.execute("""
                                 UPDATE pharmacy_inventories 
@@ -134,29 +142,32 @@ def process_file(file_path):
                             """, (drug_name, stock_status, form, strength, supplier, record_id))
 
                             conn.commit()  # ✅ PostgreSQL commits the update
-                             # ✅ Log update to file
-                            logging.info(f"UPDATED {pharmacy_name} - {ndc}: {db_values} → {new_values}")
-
+                            logging.info(f"✅ UPDATED {pharmacy_name} - {ndc}: {db_values} → {new_values}")
                             print(f"✅ Successfully UPDATED {pharmacy_name} - {ndc} in the database.")
                         else:
                             print(f"✅ No changes detected for {pharmacy_name} - {ndc}, skipping update.")
+                            logging.info(f"✅ No changes detected for {pharmacy_name} - {ndc}, skipping update.")
                     else:
+                        # ✅ Ensure `new_values` is **always available** before logging
+                        print(f"✅ Inserted new inventory for {pharmacy_name} - {ndc}")
+                        logging.info(f"✅ INSERTED {pharmacy_name} - {ndc} with values: {new_values}")
+
                         # ✅ Insert new record if no existing entry is found
                         cursor.execute("""
                             INSERT INTO pharmacy_inventories 
                             (pharmacy_id, ndc, drug_name, stock_status, form, strength, supplier, last_updated, created_at, updated_at)
                             VALUES (%s, %s, %s, %s, %s, %s, %s, NOW(), NOW(), NOW());
                         """, (pharmacy_id, ndc, drug_name, stock_status, form, strength, supplier))
-                        print(f"✅ Inserted new inventory for {pharmacy_name} - {ndc}")
-                        # log new inserts
-                        logging.info(f"INSERTED {pharmacy_name} - {ndc} with values: {new_values}")
+                    
                     conn.commit()
 
         print("\n✅ File processing complete!\n")
+        logging.info("✅ File processing complete!")
         cursor.close()
         conn.close()
     except Exception as e:
         print(f"❌ Error processing {file_path}: {e}")
+        logging.error(f"❌ Error processing {file_path}: {e}")
 
 if __name__ == "__main__":
     event_handler = PharmacyDataHandler()
