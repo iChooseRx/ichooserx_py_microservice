@@ -7,7 +7,7 @@ import logging
 from dotenv import load_dotenv
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
-from thefuzz import fuzz  # For fuzzy matching
+from thefuzz import fuzz
 
 # 🔹 Configure logging settings
 logging.basicConfig(
