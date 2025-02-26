@@ -42,9 +42,6 @@ COLUMN_SYNONYMS = {
     "Supplier": ["supplier", "manufacturer", "company"]
 }
 
-import os
-import re
-
 def extract_pharmacy_name(file_path):
     """Extracts the pharmacy name from filenames like 'b&b_pharmacy_ndc_list'."""
     filename = os.path.basename(file_path)  # Get the file name only (no path)
