@@ -5,7 +5,7 @@ Pharmacy A,54321-9876-02,Yes Drug,Low Stock,Capsule,12.5mg,Supplier Z
 Pharmacy A,65432-8765-03,Drug Gamma,Available,Syrup,20ml,Supplier Z
 Pharmacy B,77777-7777-07,Drug Delta,In Stock,Injection,2ml,Supplier A
 Pharmacy B,88888-8888-08,Drug Epsilon,Low Stock,Powder,25g,Supplier B
-New Pharmacy C,99999-1111-09,Drug Zeta,In Stock,Tablet,42.5mg,Supplier D
+New Pharmacy C,99999-1111-09,Drug Zeta,In Stock,Tablet,45mg,Supplier D
 Pharmacy A,54321-9876-02,Drug Beta,Low Stock,Capsule,10mg,Supplier Y
 Pharmacy B,77777-7777-07,Drug Delta,,,,
 New Pharmacy D,99991-1113-06,Fun Drug,In Stock,Tablet,30mg,Supplier N
