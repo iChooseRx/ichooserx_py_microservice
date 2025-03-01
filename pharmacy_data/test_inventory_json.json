@@ -5,7 +5,7 @@
         "Drug": "Drug Lambda",
         "Stock": "Available",
         "Form": "Injection",
-        "Strength": "5ml",
+        "Strength": "10ml",
         "Supplier": "Supplier T"
     },
     {
@@ -14,7 +14,7 @@
         "Drug": "Drug Kappa",
         "Stock": "Low Stock",
         "Form": "Powder",
-        "Strength": "100g",
+        "Strength": "16g",
         "Supplier": "Supplier U"
     }
 ]
