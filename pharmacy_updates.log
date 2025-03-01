@@ -71,3 +71,25 @@
 2025-03-01 12:06:30 - INFO - 🚀 Pharmacy inventory watch script started!
 2025-03-01 12:06:30 - INFO - 📂 Processing file: /Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/pharmacy_data/test_inventory.csv
 2025-03-01 12:06:30 - INFO - ✅ File processing complete!
+2025-03-01 12:44:22 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-01 12:44:22 - INFO - 📂 Processing file: /Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/pharmacy_data/test_inventory_xslx.xlsx
+2025-03-01 12:44:22 - INFO - ✅ File processing complete!
+2025-03-01 13:09:48 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-01 13:09:48 - INFO - 📂 Processing file: /Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/pharmacy_data/A&A_pharmacy_ndc_list.csv
+2025-03-01 13:09:49 - INFO - 🔹 Pharmacy 'A&A' not found. Creating it now...
+2025-03-01 13:09:49 - INFO - ✅ File processing complete!
+2025-03-01 13:15:27 - WARNING -  * Debugger is active!
+2025-03-01 13:15:27 - INFO -  * Debugger PIN: 144-642-414
+2025-03-01 13:15:51 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.245:8000
+2025-03-01 13:15:51 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-01 13:15:51 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-01 13:15:52 - WARNING -  * Debugger is active!
+2025-03-01 13:15:52 - INFO -  * Debugger PIN: 144-642-414
+2025-03-01 13:16:20 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-01 13:16:20 - INFO - 📂 Processing file: pharmacy_data/C&C_pharmacy_ndc_list.csv
+2025-03-01 13:16:21 - INFO - 🔹 Pharmacy 'C&C' not found. Creating it now...
+2025-03-01 13:16:21 - INFO - ✅ File processing complete!
+2025-03-01 13:16:21 - INFO - 127.0.0.1 - - [01/Mar/2025 13:16:21] "POST /upload HTTP/1.1" 200 -
