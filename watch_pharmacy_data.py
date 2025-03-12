@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from thefuzz import fuzz
+import traceback
 
 # 🔹 Configure logging settings
 logging.basicConfig(
@@ -110,64 +111,32 @@ class PharmacyDataHandler(FileSystemEventHandler):
 last_processed = {}
 
 # ✅ Process File Function
-def process_file(file_path):
+def process_file(file_path, user_id):
     """Reads and processes a pharmacy inventory file and updates the database."""
-    logging.info("🚀 Pharmacy inventory watch script started!")
-    # Get last modified time of the file
-    last_modified = os.path.getmtime(file_path)
-
-    # If the file was processed recently, ignore it
-    if file_path in last_processed and time.time() - last_processed[file_path] < 5:
-        print(f"🔄 File {file_path} was modified too recently. Skipping duplicate processing.")
-        return
-
-    # Update the last processed timestamp
-    last_processed[file_path] = last_modified
+    logging.info(f"🚀 Processing file {file_path} for user {user_id}")
 
     try:
         # ✅ Load Data into Pandas DataFrame
         if file_path.endswith(".csv"):
-            try:
-                df = pd.read_csv(file_path, encoding="utf-8")
-            except UnicodeDecodeError as e:
-                print(f"⚠️ Encoding issue detected for {file_path}. Retrying with 'latin1' encoding... Error: {e}")
-                logging.warning(f"⚠️ Encoding issue detected for {file_path}. Retrying with 'latin1' encoding... Error: {e}")
-                df = pd.read_csv(file_path, encoding="latin1")  # Fallback for bad encoding
+            df = pd.read_csv(file_path, encoding="utf-8")
         elif file_path.endswith(".xlsx"):
             df = pd.read_excel(file_path)
         elif file_path.endswith(".json"):
             df = pd.read_json(file_path)
         else:
-            file_ext = os.path.splitext(file_path)[1]
-            print(f"❌ Unsupported file format ({file_ext}). Skipping.")
-            logging.warning(f"❌ Unsupported file format ({file_ext}): {file_path}")
+            print(f"❌ Unsupported file format. Skipping: {file_path}")
             return
 
         print(f"\n📂 Processing file: {file_path}")
-        logging.info(f"📂 Processing file: {file_path}")
 
         # ✅ Normalize Column Names
         df = normalize_column_names(df, COLUMN_SYNONYMS)
 
-        # ✅ Extract Pharmacy Name if Missing
-        if "Pharmacy" not in df.columns:
-            pharmacy_name = extract_pharmacy_name(file_path)
-
-            if not pharmacy_name:
-                logging.warning(f"⚠️ No pharmacy name found in file or filename: {file_path}. Skipping processing.")
-                return  # 🚫 Skip if we cannot determine the pharmacy
-
-            print(f"📌 No 'Pharmacy' column found. Assigning '{pharmacy_name}' from filename.")
-            df["Pharmacy"] = pharmacy_name  # Assign extracted name to all rows
-
         # ✅ Ensure Required Columns Are Present
-        required_cols = {"Pharmacy", "NDC"}
+        required_cols = {"NDC"}
         if not required_cols.issubset(df.columns):
             logging.warning(f"❌ Missing required columns: {required_cols - set(df.columns)} in {file_path}. Skipping.")
             return
-
-        # ✅ Remove duplicate rows based on Pharmacy + NDC
-        df = df.drop_duplicates(subset=["Pharmacy", "NDC"])
 
         # ✅ Connect to PostgreSQL
         conn = psycopg2.connect(
@@ -179,89 +148,67 @@ def process_file(file_path):
         )
         cursor = conn.cursor()
 
-        for _, row in df.iterrows():
-            if pd.isnull(row["Pharmacy"]) or pd.isnull(row["NDC"]):
-                print(f"⚠️ Skipping row due to missing required fields: {row}")
-                logging.warning(f"⚠️ Skipping row due to missing required fields: {row}")
-                continue  # 🚫 Skip rows with missing Pharmacy or NDC
+        # 🔍 Find Pharmacy Associated with User ID
+        cursor.execute("SELECT id, name FROM pharmacies WHERE user_id = %s LIMIT 1;", (user_id,))
+        pharmacy_data = cursor.fetchone()
 
-            pharmacy_name = row["Pharmacy"].strip()
+        if not pharmacy_data:
+            print(f"❌ No pharmacy found for user {user_id}. Skipping file.")
+            return
+
+        pharmacy_id, pharmacy_name = pharmacy_data
+        print(f"✅ Found pharmacy '{pharmacy_name}' for user {user_id}")
+
+        # ✅ Assign the pharmacy name to all rows
+        df["Pharmacy"] = pharmacy_name
+
+        # ✅ Remove duplicate rows based on Pharmacy + NDC
+        df = df.drop_duplicates(subset=["Pharmacy", "NDC"])
+
+        for _, row in df.iterrows():
             ndc = row["NDC"].strip()
-            drug_name = row.get("Drug", "Unknown Drug").strip()  # ✅ Allow missing Drug Name
+            drug_name = row.get("Drug", "Unknown Drug").strip()
             stock_status = row.get("Stock", "Unknown")
-            form = row.get("Form", None) or "" 
+            form = row.get("Form", None) or ""
             strength = row.get("Strength", None) or ""
             supplier = row.get("Supplier", None) or ""
 
-            new_values = (drug_name, stock_status or "", form or "", strength or "", supplier or "")
+            # 🔍 Check if the NDC already exists for this pharmacy
+            cursor.execute("""
+                SELECT id FROM pharmacy_inventories 
+                WHERE pharmacy_id = %s AND ndc = %s LIMIT 1;
+            """, (pharmacy_id, ndc))
 
-            # 🔍 Check if pharmacy exists
-            cursor.execute("SELECT id FROM pharmacies WHERE name = %s LIMIT 1;", (pharmacy_name,))
-            pharmacy_id = cursor.fetchone()
+            existing_record = cursor.fetchone()
 
-            if not pharmacy_id:
-                print(f"🔹 Pharmacy '{pharmacy_name}' not found. Creating it now...")
-                logging.info(f"🔹 Pharmacy '{pharmacy_name}' not found. Creating it now...")
-
+            if existing_record:
+                record_id = existing_record[0]
                 cursor.execute("""
-                    INSERT INTO pharmacies (name, address, phone, created_at, updated_at)
-                    VALUES (%s, %s, %s, NOW(), NOW())
-                    ON CONFLICT (name) DO UPDATE SET updated_at = NOW()
-                    RETURNING id;
-                """, (pharmacy_name, "Unknown Address", "000-000-0000"))
-
-                pharmacy_id = cursor.fetchone()  # ✅ Make sure we fetch the ID after insertion!
-
-            if pharmacy_id:
-                pharmacy_id = int(pharmacy_id[0])  # ✅ Ensures `pharmacy_id` is an integer
-
-                # 🔍 Check if the NDC already exists for this pharmacy
+                    UPDATE pharmacy_inventories 
+                    SET drug_name = %s, stock_status = %s, form = %s, strength = %s, supplier = %s, last_updated = NOW()
+                    WHERE id = %s;
+                """, (drug_name, stock_status, form, strength, supplier, record_id))
+            else:
                 cursor.execute("""
-                    SELECT id, drug_name, stock_status, form, strength, supplier 
-                    FROM pharmacy_inventories 
-                    WHERE pharmacy_id = %s AND ndc = %s LIMIT 1;
-                """, (pharmacy_id, ndc))
-                
-                existing_record = cursor.fetchone()
+                    INSERT INTO pharmacy_inventories 
+                    (pharmacy_id, ndc, drug_name, stock_status, form, strength, supplier, last_updated, created_at, updated_at)
+                    VALUES (%s, %s, %s, %s, %s, %s, %s, NOW(), NOW(), NOW());
+                """, (pharmacy_id, ndc, drug_name, stock_status, form, strength, supplier))
 
-                if existing_record:
-                    record_id = existing_record[0]
-
-                    cursor.execute("""
-                        UPDATE pharmacy_inventories 
-                        SET drug_name = %s, stock_status = %s, form = %s, strength = %s, supplier = %s, last_updated = NOW()
-                        WHERE id = %s;
-                    """, (drug_name, stock_status, form, strength, supplier, record_id))
-                else:
-                    cursor.execute("""
-                        INSERT INTO pharmacy_inventories 
-                        (pharmacy_id, ndc, drug_name, stock_status, form, strength, supplier, last_updated, created_at, updated_at)
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, NOW(), NOW(), NOW());
-                    """, (pharmacy_id, ndc, drug_name, stock_status, form, strength, supplier))
-
-                conn.commit()
-
-        print("\n✅ File processing complete!\n")
-        logging.info("✅ File processing complete!")
+        conn.commit()
         cursor.close()
         conn.close()
 
-    except Exception as e:
-        import traceback
-        print(f"❌ FULL ERROR TRACEBACK:")
-        traceback.print_exc()  # This prints the full error details
-        print(f"❌ Error processing {file_path} for Pharmacy '{pharmacy_name if 'pharmacy_name' in locals() else 'Unknown'}': {e}")
-        logging.error(f"❌ Error processing {file_path} for Pharmacy '{pharmacy_name if 'pharmacy_name' in locals() else 'Unknown'}': {e}")
+        print("\n✅ File processing complete!")
 
+    except Exception as e:
+        print(f"❌ Error processing file: {e}")
+        traceback.print_exc()
     finally:
-        try:
-            if 'cursor' in locals() and cursor:
-                cursor.close()
-            if 'conn' in locals() and conn:
-                conn.close()
-        except Exception as close_error:
-            print(f"⚠️ Error closing database connection: {close_error}")
-            logging.error(f"⚠️ Error closing database connection: {close_error}")
+        if 'cursor' in locals() and cursor:
+            cursor.close()
+        if 'conn' in locals() and conn:
+            conn.close()
 
 if __name__ == "__main__":
     event_handler = PharmacyDataHandler()

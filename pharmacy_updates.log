@@ -93,3 +93,90 @@
 2025-03-01 13:16:21 - INFO - 🔹 Pharmacy 'C&C' not found. Creating it now...
 2025-03-01 13:16:21 - INFO - ✅ File processing complete!
 2025-03-01 13:16:21 - INFO - 127.0.0.1 - - [01/Mar/2025 13:16:21] "POST /upload HTTP/1.1" 200 -
+2025-03-03 16:24:18 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.245:8000
+2025-03-03 16:24:18 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-03 16:24:18 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-03 16:24:18 - WARNING -  * Debugger is active!
+2025-03-03 16:24:18 - INFO -  * Debugger PIN: 144-642-414
+2025-03-03 16:30:42 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-03 16:30:42 - INFO - 📂 Processing file: pharmacy_data/D&D_pharmacy_ndc_list.csv
+2025-03-03 16:30:43 - INFO - 🔹 Pharmacy 'D&D' not found. Creating it now...
+2025-03-03 16:30:43 - INFO - ✅ File processing complete!
+2025-03-03 16:30:43 - INFO - 127.0.0.1 - - [03/Mar/2025 16:30:43] "POST /upload HTTP/1.1" 200 -
+2025-03-03 16:33:53 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-03 16:33:53 - INFO - 📂 Processing file: pharmacy_data/D&D_pharmacy_ndc_list.csv
+2025-03-03 16:33:53 - INFO - ✅ File processing complete!
+2025-03-03 16:33:53 - INFO - 127.0.0.1 - - [03/Mar/2025 16:33:53] "POST /upload HTTP/1.1" 200 -
+2025-03-03 16:35:50 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-03 16:35:50 - INFO - 📂 Processing file: pharmacy_data/D&D_pharmacy_ndc_list.csv
+2025-03-03 16:35:50 - INFO - ✅ File processing complete!
+2025-03-03 16:35:50 - INFO - 127.0.0.1 - - [03/Mar/2025 16:35:50] "POST /upload HTTP/1.1" 200 -
+2025-03-03 16:37:04 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-03 16:37:04 - INFO - 📂 Processing file: pharmacy_data/D&D_pharmacy_ndc_list.csv
+2025-03-03 16:37:04 - INFO - ✅ File processing complete!
+2025-03-03 16:37:04 - INFO - 127.0.0.1 - - [03/Mar/2025 16:37:04] "POST /upload HTTP/1.1" 200 -
+2025-03-03 16:38:37 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-03 16:38:37 - INFO - 📂 Processing file: pharmacy_data/D&D_pharmacy_ndc_list.csv
+2025-03-03 16:38:37 - INFO - ✅ File processing complete!
+2025-03-03 16:38:37 - INFO - 127.0.0.1 - - [03/Mar/2025 16:38:37] "POST /upload HTTP/1.1" 200 -
+2025-03-03 16:39:26 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-03 16:39:26 - INFO - 📂 Processing file: pharmacy_data/D&D_pharmacy_ndc_list.csv
+2025-03-03 16:39:26 - INFO - ✅ File processing complete!
+2025-03-03 16:39:26 - INFO - 127.0.0.1 - - [03/Mar/2025 16:39:26] "POST /upload HTTP/1.1" 200 -
+2025-03-03 16:41:16 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-03 16:41:16 - INFO - 📂 Processing file: pharmacy_data/D&D_pharmacy_ndc_list.csv
+2025-03-03 16:41:17 - INFO - ✅ File processing complete!
+2025-03-03 16:41:17 - INFO - 127.0.0.1 - - [03/Mar/2025 16:41:17] "POST /upload HTTP/1.1" 200 -
+2025-03-05 13:22:25 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.245:8000
+2025-03-05 13:22:25 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-05 13:22:25 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-05 13:22:25 - WARNING -  * Debugger is active!
+2025-03-05 13:22:25 - INFO -  * Debugger PIN: 144-642-414
+2025-03-12 14:41:23 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.245:8000
+2025-03-12 14:41:23 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-12 14:41:23 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-12 14:41:23 - WARNING -  * Debugger is active!
+2025-03-12 14:41:23 - INFO -  * Debugger PIN: 144-642-414
+2025-03-12 14:47:26 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.245:8000
+2025-03-12 14:47:26 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-12 14:47:26 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-12 14:47:26 - WARNING -  * Debugger is active!
+2025-03-12 14:47:26 - INFO -  * Debugger PIN: 144-642-414
+2025-03-12 14:48:39 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-12 14:48:39 - INFO - 📂 Processing file: pharmacy_data/D&D_pharmacy_ndc_list.csv
+2025-03-12 14:48:40 - INFO - ✅ File processing complete!
+2025-03-12 14:48:40 - INFO - 127.0.0.1 - - [12/Mar/2025 14:48:40] "POST /upload HTTP/1.1" 200 -
+2025-03-12 15:02:41 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/app.py', reloading
+2025-03-12 15:02:41 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-12 15:02:42 - WARNING -  * Debugger is active!
+2025-03-12 15:02:42 - INFO -  * Debugger PIN: 144-642-414
+2025-03-12 15:04:03 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/watch_pharmacy_data.py', reloading
+2025-03-12 15:04:03 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-12 15:04:04 - WARNING -  * Debugger is active!
+2025-03-12 15:04:04 - INFO -  * Debugger PIN: 144-642-414
+2025-03-12 15:05:50 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/watch_pharmacy_data.py', reloading
+2025-03-12 15:05:51 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-12 15:05:51 - WARNING -  * Debugger is active!
+2025-03-12 15:05:51 - INFO -  * Debugger PIN: 144-642-414
+2025-03-12 15:06:08 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.245:8000
+2025-03-12 15:06:08 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-12 15:06:08 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-12 15:06:08 - WARNING -  * Debugger is active!
+2025-03-12 15:06:08 - INFO -  * Debugger PIN: 144-642-414
+2025-03-12 15:13:59 - INFO - 🚀 Processing file pharmacy_data/ndc_list.csv for user 12
+2025-03-12 15:13:59 - INFO - 127.0.0.1 - - [12/Mar/2025 15:13:59] "POST /upload HTTP/1.1" 200 -

@@ -25,17 +25,21 @@ def upload_file():
     if file.filename == "":
         return jsonify({"error": "No selected file"}), 400
 
+    user_id = request.form.get("user_id")  # 🆕 Get user ID from request
+    if not user_id:
+        return jsonify({"error": "User ID is required"}), 400
+
     # 📂 Save the file
     file_path = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
     file.save(file_path)
 
-    print(f"✅ File received: {file.filename}")
+    print(f"✅ File received from user {user_id}: {file.filename}")
     print(f"📂 File saved in {UPLOAD_FOLDER}. Now processing...")
 
     # 🔥 Directly call `process_file()` to process the uploaded file
     try:
-        process_file(file_path)  # ✅ File is processed immediately
-        print(f"✅ Successfully processed {file.filename} and sent to Rails")
+        process_file(file_path, user_id)  # ✅ Pass user_id to the function
+        print(f"✅ Successfully processed {file.filename} for user {user_id}")
         return jsonify({"message": f"File '{file.filename}' uploaded and processed successfully."}), 200
     except Exception as e:
         print(f"❌ Error processing {file.filename}: {e}")
