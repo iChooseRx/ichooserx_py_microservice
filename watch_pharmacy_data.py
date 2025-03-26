@@ -17,21 +17,18 @@ logging.basicConfig(
     datefmt="%Y-%m-%d %H:%M:%S"
 )
 
-# Load environment variables
 load_dotenv()
 
-# Get database credentials from environment variables
 DB_NAME = os.getenv("DB_NAME")
 DB_USER = os.getenv("DB_USER")
 DB_PASSWORD = os.getenv("DB_PASSWORD")
 DB_HOST = os.getenv("DB_HOST")
 DB_PORT = os.getenv("DB_PORT")
 
-# Directory to watch for new pharmacy files
 WATCHED_DIR = "pharmacy_data"
-os.makedirs(WATCHED_DIR, exist_ok=True)  # Ensure directory exists
+os.makedirs(WATCHED_DIR, exist_ok=True)
 
-# 🔹 Column name standardization
+# Column name standardization
 COLUMN_SYNONYMS = {
     "Pharmacy": ["pharmacy", "pharmacy name", "pharmacy_name", "store"],
     "NDC": ["ndc", "national drug code", "ndc code"],
@@ -44,8 +41,8 @@ COLUMN_SYNONYMS = {
 
 def extract_pharmacy_name(file_path):
     """Extracts the pharmacy name from filenames like 'b&b_pharmacy_ndc_list'."""
-    filename = os.path.basename(file_path)  # Get the file name only (no path)
-    filename_no_ext = os.path.splitext(filename)[0]  # Remove extension
+    filename = os.path.basename(file_path)
+    filename_no_ext = os.path.splitext(filename)[0]
 
     # Extract everything before "_pharmacy_ndc_list"
     match = re.search(r"^(.*?)_pharmacy_ndc_list", filename_no_ext, re.IGNORECASE)
@@ -54,9 +51,9 @@ def extract_pharmacy_name(file_path):
         # Convert underscores to spaces, keep special characters (like "&"), and title-case the name
         return match.group(1).replace("_", " ").title()
     else:
-        return None  # Return None if no match
+        return None
     
-# ✅ Fuzzy Matching Function
+# Fuzzy Matching Function
 def fuzzy_match_column(col, synonyms_dict, threshold=80):
     """Returns the standardized column name if a fuzzy match is found."""
     best_match = None
@@ -71,7 +68,6 @@ def fuzzy_match_column(col, synonyms_dict, threshold=80):
 
     return best_match if best_score >= threshold else None
 
-# ✅ Normalize Column Names
 def normalize_column_names(df, synonyms_dict):
     """Renames columns in `df` to standardized names if they match any synonyms or fuzzy matches."""
     lookup = {}
@@ -96,7 +92,7 @@ def normalize_column_names(df, synonyms_dict):
     df.rename(columns=rename_map, inplace=True)
     return df
 
-# ✅ Watchdog Handler for New File Changes
+# Watchdog Handler for New File Changes
 class PharmacyDataHandler(FileSystemEventHandler):
     """Watches for changes in the pharmacy_data directory and processes updated files."""
     def on_modified(self, event):
@@ -109,11 +105,10 @@ class PharmacyDataHandler(FileSystemEventHandler):
 # Store the last processed timestamp
 last_processed = {}
 
-# ✅ Process File Function
+# Process File Function
 def process_file(file_path):
     """Reads and processes a pharmacy inventory file and updates the database."""
     logging.info("🚀 Pharmacy inventory watch script started!")
-    # Get last modified time of the file
     last_modified = os.path.getmtime(file_path)
 
     # If the file was processed recently, ignore it
@@ -125,7 +120,7 @@ def process_file(file_path):
     last_processed[file_path] = last_modified
 
     try:
-        # ✅ Load Data into Pandas DataFrame
+        # Load Data into Pandas DataFrame
         if file_path.endswith(".csv"):
             try:
                 df = pd.read_csv(file_path, encoding="utf-8")
@@ -146,30 +141,30 @@ def process_file(file_path):
         print(f"\n📂 Processing file: {file_path}")
         logging.info(f"📂 Processing file: {file_path}")
 
-        # ✅ Normalize Column Names
+        # Normalize Column Names
         df = normalize_column_names(df, COLUMN_SYNONYMS)
 
-        # ✅ Extract Pharmacy Name if Missing
+        # Extract Pharmacy Name if Missing
         if "Pharmacy" not in df.columns:
             pharmacy_name = extract_pharmacy_name(file_path)
 
             if not pharmacy_name:
                 logging.warning(f"⚠️ No pharmacy name found in file or filename: {file_path}. Skipping processing.")
-                return  # 🚫 Skip if we cannot determine the pharmacy
+                return  # Skip if cannot determine the pharmacy
 
             print(f"📌 No 'Pharmacy' column found. Assigning '{pharmacy_name}' from filename.")
             df["Pharmacy"] = pharmacy_name  # Assign extracted name to all rows
 
-        # ✅ Ensure Required Columns Are Present
+        # Ensure Required Columns Are Present
         required_cols = {"Pharmacy", "NDC"}
         if not required_cols.issubset(df.columns):
             logging.warning(f"❌ Missing required columns: {required_cols - set(df.columns)} in {file_path}. Skipping.")
             return
 
-        # ✅ Remove duplicate rows based on Pharmacy + NDC
+        # Remove duplicate rows based on Pharmacy + NDC
         df = df.drop_duplicates(subset=["Pharmacy", "NDC"])
 
-        # ✅ Connect to PostgreSQL
+        # Connect to PostgreSQL
         conn = psycopg2.connect(
             dbname=DB_NAME,
             user=DB_USER,
@@ -183,11 +178,11 @@ def process_file(file_path):
             if pd.isnull(row["Pharmacy"]) or pd.isnull(row["NDC"]):
                 print(f"⚠️ Skipping row due to missing required fields: {row}")
                 logging.warning(f"⚠️ Skipping row due to missing required fields: {row}")
-                continue  # 🚫 Skip rows with missing Pharmacy or NDC
+                continue  # Skip rows with missing Pharmacy or NDC
 
             pharmacy_name = row["Pharmacy"].strip()
             ndc = row["NDC"].strip()
-            drug_name = row.get("Drug", "Unknown Drug").strip()  # ✅ Allow missing Drug Name
+            drug_name = row.get("Drug", "Unknown Drug").strip()
             stock_status = row.get("Stock", "Unknown")
             form = row.get("Form", None) or "" 
             strength = row.get("Strength", None) or ""
@@ -195,7 +190,7 @@ def process_file(file_path):
 
             new_values = (drug_name, stock_status or "", form or "", strength or "", supplier or "")
 
-            # 🔍 Check if pharmacy exists
+            # Check if pharmacy exists
             cursor.execute("SELECT id FROM pharmacies WHERE name = %s LIMIT 1;", (pharmacy_name,))
             pharmacy_id = cursor.fetchone()
 
@@ -210,12 +205,12 @@ def process_file(file_path):
                     RETURNING id;
                 """, (pharmacy_name, "Unknown Address", "000-000-0000"))
 
-                pharmacy_id = cursor.fetchone()  # ✅ Make sure we fetch the ID after insertion!
+                pharmacy_id = cursor.fetchone()  # Make sure we fetch the ID after insertion!
 
             if pharmacy_id:
-                pharmacy_id = int(pharmacy_id[0])  # ✅ Ensures `pharmacy_id` is an integer
+                pharmacy_id = int(pharmacy_id[0])  # Ensures `pharmacy_id` is an integer
 
-                # 🔍 Check if the NDC already exists for this pharmacy
+                # Check if the NDC already exists for this pharmacy
                 cursor.execute("""
                     SELECT id, drug_name, stock_status, form, strength, supplier 
                     FROM pharmacy_inventories 
@@ -249,7 +244,7 @@ def process_file(file_path):
     except Exception as e:
         import traceback
         print(f"❌ FULL ERROR TRACEBACK:")
-        traceback.print_exc()  # This prints the full error details
+        traceback.print_exc()
         print(f"❌ Error processing {file_path} for Pharmacy '{pharmacy_name if 'pharmacy_name' in locals() else 'Unknown'}': {e}")
         logging.error(f"❌ Error processing {file_path} for Pharmacy '{pharmacy_name if 'pharmacy_name' in locals() else 'Unknown'}': {e}")
 

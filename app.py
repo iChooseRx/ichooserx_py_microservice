@@ -4,13 +4,13 @@ import os
 import traceback
 import sys
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))  # ✅ Ensure local imports work
-from watch_pharmacy_data import process_file  # ✅ Import `process_file` directly
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))  # Ensure local imports work
+from watch_pharmacy_data import process_file  # Import `process_file` directly
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes (allows frontend requests)
 
-# 📂 Directory to store uploaded files
+# Directory to store uploaded files
 UPLOAD_FOLDER = "pharmacy_data"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure folder exists
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
@@ -25,16 +25,16 @@ def upload_file():
     if file.filename == "":
         return jsonify({"error": "No selected file"}), 400
 
-    # 📂 Save the file
+    # Save the file
     file_path = os.path.join(app.config["UPLOAD_FOLDER"], file.filename)
     file.save(file_path)
 
     print(f"✅ File received: {file.filename}")
     print(f"📂 File saved in {UPLOAD_FOLDER}. Now processing...")
 
-    # 🔥 Directly call `process_file()` to process the uploaded file
+    # Directly call `process_file()` to process the uploaded file
     try:
-        process_file(file_path)  # ✅ File is processed immediately
+        process_file(file_path)  # File is processed immediately
         print(f"✅ Successfully processed {file.filename} and sent to Rails")
         return jsonify({"message": f"File '{file.filename}' uploaded and processed successfully."}), 200
     except Exception as e:
