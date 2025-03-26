@@ -117,3 +117,23 @@
 2025-03-18 21:49:33 - INFO - 192.168.1.254 - - [18/Mar/2025 21:49:33] "[33mGET / HTTP/1.1[0m" 404 -
 2025-03-18 21:49:33 - INFO - 192.168.1.254 - - [18/Mar/2025 21:49:33] "[33mGET /${${env:TEST:-j}${lower:n}di${lower::}d${lower:n}s:%2F%2F192.168.1.254:47805%2FqvfLSxJBwGTnQGRkFrOkOpxyWuVbMljM} HTTP/1.1[0m" 404 -
 2025-03-18 21:49:43 - INFO - 192.168.1.254 - - [18/Mar/2025 21:49:43] "[33mPOST / HTTP/1.1[0m" 404 -
+2025-03-26 13:19:57 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:8000
+ * Running on http://192.168.1.245:8000
+2025-03-26 13:19:57 - INFO - [33mPress CTRL+C to quit[0m
+2025-03-26 13:19:57 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-26 13:19:58 - WARNING -  * Debugger is active!
+2025-03-26 13:19:58 - INFO -  * Debugger PIN: 251-649-662
+2025-03-26 13:21:54 - INFO - 🚀 Pharmacy inventory watch script started!
+2025-03-26 13:21:54 - INFO - 📂 Processing file: pharmacy_data/ndc_list.csv
+2025-03-26 13:21:54 - WARNING - ⚠️ No pharmacy name found in file or filename: pharmacy_data/ndc_list.csv. Skipping processing.
+2025-03-26 13:21:54 - INFO - 127.0.0.1 - - [26/Mar/2025 13:21:54] "POST /upload HTTP/1.1" 200 -
+2025-03-26 13:25:18 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/app.py', reloading
+2025-03-26 13:25:19 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-26 13:25:19 - WARNING -  * Debugger is active!
+2025-03-26 13:25:19 - INFO -  * Debugger PIN: 251-649-662
+2025-03-26 13:25:56 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/watch_pharmacy_data.py', reloading
+2025-03-26 13:25:57 - INFO -  * Restarting with watchdog (fsevents)
+2025-03-26 13:25:58 - WARNING -  * Debugger is active!
+2025-03-26 13:25:58 - INFO -  * Debugger PIN: 251-649-662

@@ -4,15 +4,15 @@ import os
 import traceback
 import sys
 
-sys.path.append(os.path.dirname(os.path.abspath(__file__)))  # Ensure local imports work
-from watch_pharmacy_data import process_file  # Import `process_file` directly
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+from watch_pharmacy_data import process_file 
 
 app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes (allows frontend requests)
 
 # Directory to store uploaded files
 UPLOAD_FOLDER = "pharmacy_data"
-os.makedirs(UPLOAD_FOLDER, exist_ok=True)  # Ensure folder exists
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
 @app.route("/upload", methods=["POST"])

@@ -9,7 +9,6 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 from thefuzz import fuzz
 
-# 🔹 Configure logging settings
 logging.basicConfig(
     filename="pharmacy_updates.log",
     level=logging.INFO,
