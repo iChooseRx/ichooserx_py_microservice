@@ -1,0 +1,41 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'build',
+        '-t',
+        'gcr.io/$PROJECT_ID/pharmacy-microservice',
+        '.'
+      ]
+
+  - name: 'gcr.io/cloud-builders/docker'
+    args:
+      [
+        'push',
+        'gcr.io/$PROJECT_ID/pharmacy-microservice'
+      ]
+
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: 'gcloud'
+    args:
+      [
+        'run',
+        'deploy',
+        'pharmacy-microservice',
+        '--image',
+        'gcr.io/$PROJECT_ID/pharmacy-microservice',
+        '--region',
+        'us-central1',
+        '--platform',
+        'managed',
+        '--allow-unauthenticated',
+        '--set-secrets',
+        'DB_NAME=DB_NAME:latest',
+        'DB_USERNAME=DB_USERNAME:latest',
+        'DB_PASSWORD=DB_PASSWORD:latest',
+        'DB_HOST=DB_HOST:latest',
+        'DB_PORT=DB_PORT:latest'
+      ]
+
+images:
+  - 'gcr.io/$PROJECT_ID/pharmacy-microservice'
