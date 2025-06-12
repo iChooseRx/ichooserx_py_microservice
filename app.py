@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
+from summary_service import build_json_summary
 import os
 import traceback
 import sys
@@ -41,6 +42,24 @@ def upload_file():
         print(f"❌ Error processing {file.filename}: {e}")
         traceback.print_exc()
         return jsonify({"error": f"Failed to process file: {str(e)}"}), 500
+    
+@app.route("/generate_summary", methods=["POST"])
+def generate_summary():
+    try:
+        data = request.get_json()
+        drug_names = data.get("drug_names", [])
+        filters = data.get("filters", [])
+
+        if not drug_names:
+            return jsonify({"error": "drug_names must be provided"}), 400
+
+        summary_result = build_json_summary(drug_names, filters)
+        return jsonify(summary_result), 200
+
+    except Exception as e:
+        print("❌ Error in /generate_summary:", e)
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=8080, debug=True)

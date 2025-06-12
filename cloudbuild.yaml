@@ -34,7 +34,8 @@ steps:
         'DB_USERNAME=DB_USERNAME:latest',
         'DB_PASSWORD=DB_PASSWORD:latest',
         'DB_HOST=DB_HOST:latest',
-        'DB_PORT=DB_PORT:latest'
+        'DB_PORT=DB_PORT:latest',
+        'ICHOOSERX_API_BASE_URL=NEXT_PUBLIC_ICHOOSERX_BE_BASE_URL:latest'
       ]
 
 images:
