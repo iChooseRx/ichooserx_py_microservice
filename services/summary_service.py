@@ -1,8 +1,11 @@
 import os
 import httpx
 from dotenv import load_dotenv
+from serializers.drug_summary_factory import from_api as build_drug_summary
 from transform.summary_builder import format_export_data
+from utils.alignment_score import calculate_alignment_score
 from utils.timestamp import current_timestamp
+from utils.manufacturer_utils import count_manufacturers
 
 load_dotenv()
 
@@ -21,13 +24,32 @@ def fetch_summary_for_drugs(drug_names, filters):
     return response.json()
 
 def build_json_summary(drug_names, filters):
-    """Builds and formats summary data from export_summaries API."""
     result = fetch_summary_for_drugs(drug_names, filters)
 
-    rows = format_export_data(result)
+    summaries = []
+    json_data = []
+
+    for item in result.get("summary", []):
+        drug_summary = build_drug_summary(item)
+
+        summaries.append(drug_summary)
+        json_data.append({
+            "drug_name": drug_summary.drug_name,
+            "total_results": drug_summary.total_count,
+            "filtered_results": drug_summary.filtered_count,
+            "alignment_score": calculate_alignment_score(
+                drug_summary.filtered_count,
+                drug_summary.total_count
+            ),
+            "top_manufacturers": count_manufacturers(drug_summary.variants)
+        })
 
     return {
         "created_at": current_timestamp(),
         "filters_used": filters,
-        "table_data": rows
+        "json_data": json_data,
+        "table_data": format_export_data({
+            "filters_applied": result.get("filters_applied", []),
+            "summary": result.get("summary", [])
+        })
     }

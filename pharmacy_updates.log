@@ -242,3 +242,56 @@
 2025-06-13 16:14:31 - INFO -  * Debugger PIN: 251-649-662
 2025-06-13 16:15:08 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten "HTTP/1.1 200 OK"
 2025-06-13 16:15:08 - INFO - 127.0.0.1 - - [13/Jun/2025 16:15:08] "POST /generate_summary HTTP/1.1" 200 -
+2025-06-13 16:26:30 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:26:31 - INFO -  * Restarting with watchdog (fsevents)
+2025-06-13 16:26:32 - WARNING -  * Debugger is active!
+2025-06-13 16:26:32 - INFO -  * Debugger PIN: 251-649-662
+2025-06-13 16:28:06 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:28:07 - INFO -  * Restarting with watchdog (fsevents)
+2025-06-13 16:28:08 - WARNING -  * Debugger is active!
+2025-06-13 16:28:08 - INFO -  * Debugger PIN: 251-649-662
+2025-06-13 16:28:13 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:28:14 - INFO -  * Restarting with watchdog (fsevents)
+2025-06-13 16:28:14 - WARNING -  * Debugger is active!
+2025-06-13 16:28:14 - INFO -  * Debugger PIN: 251-649-662
+2025-06-13 16:28:29 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:28:29 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:28:30 - INFO -  * Restarting with watchdog (fsevents)
+2025-06-13 16:28:30 - WARNING -  * Debugger is active!
+2025-06-13 16:28:30 - INFO -  * Debugger PIN: 251-649-662
+2025-06-13 16:28:31 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten "HTTP/1.1 200 OK"
+2025-06-13 16:28:31 - INFO - 127.0.0.1 - - [13/Jun/2025 16:28:31] "POST /generate_summary HTTP/1.1" 200 -
+2025-06-13 16:33:34 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:33:35 - INFO -  * Restarting with watchdog (fsevents)
+2025-06-13 16:43:11 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://192.168.1.245:5001
+2025-06-13 16:43:11 - INFO - [33mPress CTRL+C to quit[0m
+2025-06-13 16:43:11 - INFO -  * Restarting with watchdog (fsevents)
+2025-06-13 16:43:12 - WARNING -  * Debugger is active!
+2025-06-13 16:43:12 - INFO -  * Debugger PIN: 251-649-662
+2025-06-13 16:43:15 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten "HTTP/1.1 200 OK"
+2025-06-13 16:43:15 - INFO - 127.0.0.1 - - [13/Jun/2025 16:43:15] "[35m[1mPOST /generate_summary HTTP/1.1[0m" 500 -
+2025-06-13 16:49:55 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:49:55 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:49:56 - INFO -  * Restarting with watchdog (fsevents)
+2025-06-13 16:49:57 - WARNING -  * Debugger is active!
+2025-06-13 16:49:57 - INFO -  * Debugger PIN: 251-649-662
+2025-06-13 16:50:07 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:50:07 - INFO -  * Restarting with watchdog (fsevents)
+2025-06-13 16:50:07 - WARNING -  * Debugger is active!
+2025-06-13 16:50:07 - INFO -  * Debugger PIN: 251-649-662
+2025-06-13 16:50:45 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:50:45 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:50:46 - INFO -  * Restarting with watchdog (fsevents)
+2025-06-13 16:50:46 - WARNING -  * Debugger is active!
+2025-06-13 16:50:46 - INFO -  * Debugger PIN: 251-649-662
+2025-06-13 16:50:47 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten "HTTP/1.1 200 OK"
+2025-06-13 16:50:47 - INFO - 127.0.0.1 - - [13/Jun/2025 16:50:47] "[35m[1mPOST /generate_summary HTTP/1.1[0m" 500 -
+2025-06-13 16:52:18 - INFO -  * Detected change in '/Users/nicoshanstrom/Turing/post_turing/ichooserx/ichooserx_py_microservice/services/summary_service.py', reloading
+2025-06-13 16:52:19 - INFO -  * Restarting with watchdog (fsevents)
+2025-06-13 16:52:19 - WARNING -  * Debugger is active!
+2025-06-13 16:52:19 - INFO -  * Debugger PIN: 251-649-662
+2025-06-13 16:52:20 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten "HTTP/1.1 200 OK"
+2025-06-13 16:52:20 - INFO - 127.0.0.1 - - [13/Jun/2025 16:52:20] "POST /generate_summary HTTP/1.1" 200 -
