@@ -338,3 +338,23 @@
 2025-07-10 12:59:22 - INFO -  * Debugger PIN: 144-642-414
 2025-07-10 12:59:22 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 200 OK"
 2025-07-10 12:59:22 - INFO - 127.0.0.1 - - [10/Jul/2025 12:59:22] "POST /generate_summary HTTP/1.1" 200 -
+2025-07-10 13:58:24 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 403 Forbidden"
+2025-07-10 13:58:24 - INFO - 127.0.0.1 - - [10/Jul/2025 13:58:24] "[35m[1mPOST /generate_summary HTTP/1.1[0m" 500 -
+2025-07-10 14:00:25 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 500 Internal Server Error"
+2025-07-10 14:00:25 - INFO - 127.0.0.1 - - [10/Jul/2025 14:00:25] "[35m[1mPOST /generate_summary HTTP/1.1[0m" 500 -
+2025-07-10 14:05:57 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 200 OK"
+2025-07-10 14:05:57 - INFO - 127.0.0.1 - - [10/Jul/2025 14:05:57] "POST /generate_summary HTTP/1.1" 200 -
+2025-07-10 14:05:59 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 200 OK"
+2025-07-10 14:05:59 - INFO - 127.0.0.1 - - [10/Jul/2025 14:05:59] "POST /generate_summary HTTP/1.1" 200 -
+2025-07-10 14:06:00 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 429 Too Many Requests"
+2025-07-10 14:06:00 - INFO - 127.0.0.1 - - [10/Jul/2025 14:06:00] "[35m[1mPOST /generate_summary HTTP/1.1[0m" 500 -
+2025-07-10 14:06:21 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 429 Too Many Requests"
+2025-07-10 14:06:21 - INFO - 127.0.0.1 - - [10/Jul/2025 14:06:21] "[35m[1mPOST /generate_summary HTTP/1.1[0m" 500 -
+2025-07-12 20:37:31 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 200 OK"
+2025-07-12 20:37:31 - INFO - 127.0.0.1 - - [12/Jul/2025 20:37:31] "POST /generate_summary HTTP/1.1" 200 -
+2025-07-12 20:37:33 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 200 OK"
+2025-07-12 20:37:33 - INFO - 127.0.0.1 - - [12/Jul/2025 20:37:33] "POST /generate_summary HTTP/1.1" 200 -
+2025-07-12 20:37:35 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 200 OK"
+2025-07-12 20:37:35 - INFO - 127.0.0.1 - - [12/Jul/2025 20:37:35] "POST /generate_summary HTTP/1.1" 200 -
+2025-07-12 20:37:42 - INFO - HTTP Request: GET http://localhost:8080/api/v1/export_summaries?drug_names%5B%5D=Dextroamphetamine&drug_names%5B%5D=Methylphenidate&filters%5B%5D=artificial_colors&filters%5B%5D=gluten&filters%5B%5D=added_sugar&filters%5B%5D=artificial_flavors "HTTP/1.1 429 Too Many Requests"
+2025-07-12 20:37:42 - INFO - 127.0.0.1 - - [12/Jul/2025 20:37:42] "[35m[1mPOST /generate_summary HTTP/1.1[0m" 500 -
